@@ -1,0 +1,43 @@
+import winsound
+import tkinter as tk
+
+# define Morse code dictionary
+morse_code = {'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 'F': '..-.', 'G': '--.', 'H': '....', 'I': '..', 'J': '.---', 'K': '-.-', 'L': '.-..', 'M': '--', 'N': '-.', 'O': '---', 'P': '.--.', 'Q': '--.-', 'R': '.-.', 'S': '...', 'T': '-', 'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-', 'Y': '-.--', 'Z': '--..', '0': '-----', '1': '.----', '2': '..---', '3': '...--', '4': '....-', '5': '.....', '6': '-....', '7': '--...', '8': '---..', '9': '----.'}
+
+def play_sound(sound_type):
+    if sound_type == '.':
+        duration = 100
+    elif sound_type == '-':
+        duration = 300
+    else:
+        duration = 0
+    frequency = 1000
+    winsound.Beep(frequency, duration)
+
+def convert_to_morse():
+    text = entry.get().upper()
+    morse = ''
+    for char in text:
+        if char in morse_code:
+            morse += morse_code[char] + ' '
+    label.config(text=morse)
+    for char in morse:
+        if char == '.' or char == '-':
+            play_sound(char)
+
+# create window
+window = tk.Tk()
+window.title('Morse Code Converter')
+
+# create widgets
+label = tk.Label(window, text='')
+entry = tk.Entry(window)
+button = tk.Button(window, text='Convert', command=convert_to_morse)
+
+# add widgets to window
+label.pack()
+entry.pack()
+button.pack()
+
+# start event loop
+window.mainloop()
